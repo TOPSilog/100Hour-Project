@@ -31,7 +31,7 @@ app.get('/',(request, response)=>{
 })
 
 app.post('/addItem', (request, response) => {
-    db.collection('posts').insertOne({taskName: request.body.taskName, taskDate: request.body.taskDate, taskTask: request.body.taskTask})
+    db.collection('posts').insertOne({taskName: request.body.taskName, taskDate: request.body.taskDate, taskTask: request.body.taskTask, taskStatus: "Inbox"})
     .then(result => {
         console.log('Task Added')
         response.redirect('/')
@@ -40,5 +40,5 @@ app.post('/addItem', (request, response) => {
 })
 
 app.listen(process.env.PORT || PORT, () => {
-    console.log('Server is running')
+    console.log('Server is running...')
 })
