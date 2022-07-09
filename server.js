@@ -22,6 +22,22 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.use(cors())
 
+app.get('/',(request, response)=>{
+    db.collection('posts').find().toArray()
+    .then(data => {
+        response.render('index.ejs', { info: data })
+    })
+    .catch(error => console.error(error))
+})
+
+app.post('/addItem', (request, response) => {
+    db.collection('posts').insertOne({taskName: request.body.taskName, taskDate: request.body.taskDate, taskTask: request.body.taskTask})
+    .then(result => {
+        console.log('Task Added')
+        response.redirect('/')
+    })
+    .catch(error => console.error(error))
+})
 
 app.listen(process.env.PORT || PORT, () => {
     console.log('Server is running')
