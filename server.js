@@ -39,6 +39,15 @@ app.post('/addItem', (request, response) => {
     .catch(error => console.error(error))
 })
 
+app.delete('/completedTask', (request, response) => {
+    db.collection('posts').deleteOne({taskName: request.body.taskName})
+    .then(result => {
+        console.log('Task Completed!')
+        response.json('Task Completed!')
+    })
+    .catch(error => console.error(error))
+})
+
 app.listen(process.env.PORT || PORT, () => {
     console.log('Server is running...')
 })
